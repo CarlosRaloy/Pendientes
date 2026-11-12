@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a8bb5"/><stop offset=".55" stop-color="#8fb3d1"/><stop offset="1" stop-color="#c5d7e6"/>
+    </linearGradient>
+    <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3d7fa3"/><stop offset="1" stop-color="#1a5778"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb07a"/><stop offset="1" stop-color="#e8744f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <!-- montes lejanos -->
+  <path d="M0 640 L180 560 L320 600 L470 520 L560 560 L560 700 L0 700 Z" fill="#7a86c4"/>
+  <path d="M1080 620 L1240 540 L1360 580 L1500 520 L1600 560 L1600 700 L1080 700 Z" fill="#8a8fcc"/>
+  <!-- laderas nevadas -->
+  <path d="M220 700 L470 560 L620 520 L700 620 L560 720 Z" fill="#a9a3d8"/>
+  <path d="M360 720 L560 600 L680 640 L620 740 Z" fill="#d9cfe6"/>
+  <path d="M960 600 L1130 520 L1320 600 L1460 640 L1560 700 L1000 720 Z" fill="#d6cde6"/>
+  <path d="M1130 520 L1240 600 L1180 690 L1320 600 Z" fill="#b5acdc"/>
+  <!-- la cumbre (bloque principal) -->
+  <path d="M600 680 L640 470 L700 330 L790 250 L1010 260 L1080 330 L1150 470 L1210 600 L1120 700 Z" fill="#2c4468"/>
+  <path d="M640 470 L700 330 L790 250 L760 420 L720 640 L600 680 Z" fill="#1d3352"/>
+  <path d="M790 250 L860 255 L820 430 L780 660 L720 640 L760 420 Z" fill="#23395c"/>
+  <path d="M860 255 L930 258 L900 420 L870 650 L800 660 L820 430 Z" fill="#2f4a73"/>
+  <!-- cara iluminada por el sol -->
+  <path d="M930 258 L1010 260 L1080 330 L1150 470 L1120 480 L1040 380 L960 330 Z" fill="url(#sun)"/>
+  <path d="M960 330 L1040 380 L1120 480 L1070 520 L990 420 L940 380 Z" fill="#c9647a" opacity=".85"/>
+  <path d="M1150 470 L1210 600 L1140 640 L1070 520 L1120 480 Z" fill="#9a8fc4"/>
+  <path d="M940 380 L990 420 L1070 520 L1140 640 L1120 700 L990 690 L930 560 Z" fill="#7a7fb6"/>
+  <path d="M900 420 L940 380 L930 560 L990 690 L870 690 L870 650 Z" fill="#3c5a86"/>
+  <!-- nieve al pie -->
+  <path d="M520 760 L700 660 L860 700 L1000 680 L1180 700 L1380 680 L1600 740 L1600 800 L520 800 Z" fill="#ecdfe4"/>
+  <path d="M700 700 L860 720 L960 760 L760 780 Z" fill="#c8c3e6"/>
+  <!-- bosque oscuro -->
+  <path d="M0 720 C 200 700, 380 740, 560 770 L560 820 L0 820 Z" fill="#103044"/>
+  <path d="M1000 790 C 1200 760, 1420 770, 1600 780 L1600 830 L1000 830 Z" fill="#163a4c"/>
+  <!-- lago con reflejos -->
+  <rect y="810" width="1600" height="190" fill="url(#lake)"/>
+  <path d="M760 820 L880 820 L860 900 L800 900 Z" fill="#e8744f" opacity=".55"/>
+  <path d="M640 820 L760 820 L780 880 L700 870 Z" fill="#2c4468" opacity=".6"/>
+  <path d="M0 860 C 200 840, 380 880, 560 900 L560 1000 L0 1000 Z" fill="#e9dbe0"/>
+  <path d="M1080 880 C 1260 850, 1420 870, 1600 860 L1600 1000 L1040 1000 Z" fill="#e3d4dd"/>
+  <path d="M0 930 C 180 910, 360 940, 520 960 L520 1000 L0 1000 Z" fill="#c4b7d9"/>
+  <path d="M560 880 L1040 880 M620 930 L980 930 M700 975 L900 975" stroke="#ffffff" stroke-opacity=".25" stroke-width="3"/>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="top" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a2d5c"/><stop offset=".5" stop-color="#13529e"/><stop offset="1" stop-color="#0b3570"/>
+    </linearGradient>
+    <linearGradient id="blue2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1b5fb3"/><stop offset=".6" stop-color="#2f7fd6"/><stop offset="1" stop-color="#155aa8"/>
+    </linearGradient>
+    <linearGradient id="or1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb347"/><stop offset=".5" stop-color="#f7952f"/><stop offset="1" stop-color="#e36a1c"/>
+    </linearGradient>
+    <linearGradient id="or2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e8502d"/><stop offset=".55" stop-color="#ee7a2c"/><stop offset="1" stop-color="#f29a3a"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c8204f"/><stop offset=".6" stop-color="#d9452e"/><stop offset="1" stop-color="#b8331f"/>
+    </linearGradient>
+    <linearGradient id="deep" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7a1240"/><stop offset="1" stop-color="#a3301d"/>
+    </linearGradient>
+    <filter id="sh" x="-10%" y="-30%" width="120%" height="180%"><feGaussianBlur stdDeviation="20"/></filter>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#top)"/>
+  <path d="M-50 330 C 250 200, 500 420, 820 330 S 1350 160, 1650 300 L1650 1050 L-50 1050 Z" fill="#000" opacity=".3" filter="url(#sh)" transform="translate(0 30)"/>
+  <path d="M-50 330 C 250 200, 500 420, 820 330 S 1350 160, 1650 300 L1650 1050 L-50 1050 Z" fill="url(#blue2)"/>
+  <path d="M-50 520 C 200 380, 420 470, 600 560 S 900 380, 1100 470 S 1450 600, 1650 520 L1650 1050 L-50 1050 Z" fill="#000" opacity=".35" filter="url(#sh)" transform="translate(0 30)"/>
+  <path d="M-50 520 C 200 380, 420 470, 600 560 S 900 380, 1100 470 S 1450 600, 1650 520 L1650 1050 L-50 1050 Z" fill="url(#or2)"/>
+  <path d="M520 560 C 640 460, 760 420, 900 470 S 1020 600, 940 680 C 860 760, 640 700, 560 640 Z" fill="url(#or1)"/>
+  <path d="M-50 680 C 250 560, 520 760, 820 700 S 1300 580, 1650 700 L1650 1050 L-50 1050 Z" fill="#000" opacity=".3" filter="url(#sh)" transform="translate(0 30)"/>
+  <path d="M-50 680 C 250 560, 520 760, 820 700 S 1300 580, 1650 700 L1650 1050 L-50 1050 Z" fill="url(#red)"/>
+  <path d="M-50 860 C 300 780, 700 920, 1100 860 S 1500 800, 1650 840 L1650 1050 L-50 1050 Z" fill="url(#deep)" opacity=".9"/>
+</svg>

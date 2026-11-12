@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b1464"/><stop offset=".5" stop-color="#4a1a8c"/><stop offset="1" stop-color="#2a0f55"/>
+    </linearGradient>
+    <linearGradient id="b1" x1="0" y1="0" x2="1" y2=".3">
+      <stop offset="0" stop-color="#3b5bff"/><stop offset=".55" stop-color="#7b5cff"/><stop offset="1" stop-color="#c04dff"/>
+    </linearGradient>
+    <linearGradient id="b2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8a3cff"/><stop offset=".5" stop-color="#e0459f"/><stop offset="1" stop-color="#ff7a59"/>
+    </linearGradient>
+    <linearGradient id="b3" x1="0" y1="0" x2="1" y2=".2">
+      <stop offset="0" stop-color="#ff5fa2"/><stop offset=".6" stop-color="#ff8a5c"/><stop offset="1" stop-color="#ffc06e"/>
+    </linearGradient>
+    <linearGradient id="b4" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2b1a7a"/><stop offset="1" stop-color="#5b2fb8"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="sh" x="-10%" y="-20%" width="120%" height="160%"><feGaussianBlur stdDeviation="22"/></filter>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <!-- banda trasera -->
+  <path d="M-50 260 C 260 120, 520 330, 820 250 S 1380 90, 1650 210 L1650 560 C 1340 470, 1060 640, 760 560 S 200 470, -50 600 Z" fill="#000" opacity=".35" filter="url(#sh)" transform="translate(0 40)"/>
+  <path d="M-50 260 C 260 120, 520 330, 820 250 S 1380 90, 1650 210 L1650 560 C 1340 470, 1060 640, 760 560 S 200 470, -50 600 Z" fill="url(#b1)"/>
+  <path d="M-50 260 C 260 120, 520 330, 820 250 S 1380 90, 1650 210 L1650 330 C 1360 250, 1080 400, 780 360 S 220 260, -50 380 Z" fill="url(#shine)"/>
+  <!-- banda media -->
+  <path d="M-50 520 C 300 400, 600 640, 940 520 S 1440 400, 1650 470 L1650 800 C 1300 720, 1000 880, 680 800 S 160 720, -50 820 Z" fill="#000" opacity=".35" filter="url(#sh)" transform="translate(0 40)"/>
+  <path d="M-50 520 C 300 400, 600 640, 940 520 S 1440 400, 1650 470 L1650 800 C 1300 720, 1000 880, 680 800 S 160 720, -50 820 Z" fill="url(#b2)"/>
+  <path d="M-50 520 C 300 400, 600 640, 940 520 S 1440 400, 1650 470 L1650 580 C 1320 520, 1010 700, 690 640 S 180 520, -50 620 Z" fill="url(#shine)"/>
+  <!-- banda frontal -->
+  <path d="M-50 760 C 340 660, 700 880, 1060 770 S 1500 680, 1650 720 L1650 1050 L-50 1050 Z" fill="#000" opacity=".3" filter="url(#sh)" transform="translate(0 30)"/>
+  <path d="M-50 760 C 340 660, 700 880, 1060 770 S 1500 680, 1650 720 L1650 1050 L-50 1050 Z" fill="url(#b3)"/>
+  <path d="M-50 760 C 340 660, 700 880, 1060 770 S 1500 680, 1650 720 L1650 820 C 1480 790, 1120 880, 760 860 S 200 760, -50 860 Z" fill="url(#shine)"/>
+  <path d="M-50 930 C 400 860, 900 1000, 1650 900 L1650 1050 L-50 1050 Z" fill="url(#b4)" opacity=".55"/>
+</svg>

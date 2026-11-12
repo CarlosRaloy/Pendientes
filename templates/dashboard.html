@@ -1,0 +1,357 @@
+{% load static %}<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pendientes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script>try { var t = JSON.parse(localStorage.getItem('pendientes.theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+  <!-- Wallpaper estilo macOS: ondas de color en capas -->
+  <div class="wallpaper" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+    <svg class="waves" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="w1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2F7BFF" stop-opacity=".85"/><stop offset="1" stop-color="#7C3AED" stop-opacity=".5"/></linearGradient>
+        <linearGradient id="w2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B14DFF" stop-opacity=".8"/><stop offset="1" stop-color="#FF2E93" stop-opacity=".6"/></linearGradient>
+        <linearGradient id="w3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF4FA8" stop-opacity=".75"/><stop offset="1" stop-color="#FF7A1A" stop-opacity=".75"/></linearGradient>
+        <linearGradient id="w4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFA834" stop-opacity=".9"/><stop offset="1" stop-color="#FFE14D" stop-opacity=".85"/></linearGradient>
+      </defs>
+      <path d="M0 220 C 260 140, 520 300, 820 230 S 1300 140, 1520 220 L1520 0 L0 0 Z" fill="url(#w1)"/>
+      <path d="M0 420 C 300 320, 640 500, 960 420 S 1380 320, 1520 380 L1520 560 C 1200 500, 820 600, 480 540 S 120 500, 0 550 Z" fill="url(#w2)"/>
+      <path d="M0 660 C 340 580, 700 760, 1040 670 S 1400 600, 1520 640 L1520 830 C 1180 770, 760 880, 420 810 S 80 790, 0 830 Z" fill="url(#w3)"/>
+      <path d="M0 900 C 360 830, 760 980, 1100 910 S 1420 860, 1520 880 L1520 1000 L0 1000 Z" fill="url(#w4)"/>
+    </svg>
+    <span class="wall-light"></span>
+    <img class="wall-media" id="wall-img" alt="" hidden>
+    <video class="wall-media" id="wall-video" muted loop playsinline hidden></video>
+  </div>
+
+  <!-- Barra de menú -->
+  <header class="menubar glass">
+    <nav class="menubar-left" id="menubar" aria-label="Menú de la aplicación">
+      <button class="mb-btn mb-app" type="button" data-menu="app" aria-haspopup="menu" aria-expanded="false">
+        <svg class="apple" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke-width="2"/><circle cx="12" cy="12" r="4"/></svg>
+        <strong>Pendientes</strong>
+      </button>
+      <button class="mb-btn" type="button" data-menu="archivo" aria-haspopup="menu" aria-expanded="false">Archivo</button>
+      <button class="mb-btn" type="button" data-menu="editar" aria-haspopup="menu" aria-expanded="false">Editar</button>
+      <button class="mb-btn" type="button" data-menu="vista" aria-haspopup="menu" aria-expanded="false">Vista</button>
+    </nav>
+    <div class="menubar-right" id="clock"></div>
+  </header>
+
+  <main class="window glass">
+    <!-- Barra de título -->
+    <div class="titlebar">
+      <div class="traffic" role="group" aria-label="Controles de ventana">
+        <button class="tl r" type="button" data-action="reset" aria-label="Restablecer vista" title="Restablecer vista (quita filtros y búsqueda)"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M3 3l4 4M7 3l-4 4"/></svg></button>
+        <button class="tl y" type="button" data-action="sidebar" aria-label="Ocultar o mostrar barra lateral" title="Ocultar / mostrar barra lateral"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 5h5"/></svg></button>
+        <button class="tl g" type="button" data-action="fullscreen" aria-label="Pantalla completa" title="Pantalla completa"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M3 6.8V3h3.8M7 3.2V7H3.2"/></svg></button>
+      </div>
+      <div class="title-text">Mis pendientes</div>
+      <label class="search glass">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+        <input id="search" type="search" placeholder="Buscar" aria-label="Buscar pendientes">
+      </label>
+      <button class="icon-btn glass" id="wall-btn" type="button" aria-label="Cambiar fondo de pantalla" title="Cambiar fondo de pantalla" aria-haspopup="dialog" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="3"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="M3.5 17l5-4.5 3.5 3 3-2.5 5.5 4.5"/></svg>
+      </button>
+    </div>
+
+    <div class="layout">
+      <!-- Barra lateral -->
+      <nav class="sidebar" aria-label="Listas">
+        <div class="side-group">
+          <div class="side-title">Listas</div>
+          <button class="side" type="button" data-filter="todos">
+            <svg class="side-ic blue" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4.5"/><path d="M4 13.5L6.6 5.7A2 2 0 0 1 8.5 4.3h7a2 2 0 0 1 1.9 1.4l2.6 7.8"/><path d="M4 13.5h4.5l1 2h5l1-2H20"/></svg>
+            <span class="side-txt">Todos</span><span class="side-count" data-stat="todos">0</span>
+          </button>
+          <button class="side" type="button" data-filter="proceso">
+            <svg class="side-ic blue" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="side-txt">En proceso</span><span class="side-count" data-stat="proceso">0</span>
+          </button>
+          <button class="side" type="button" data-filter="vencido">
+            <svg class="side-ic orange" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 4.3L2.9 17.2A2 2 0 0 0 4.6 20h14.8a2 2 0 0 0 1.7-2.8L13.7 4.3a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 16.8v.2"/></svg><span class="side-txt">Vencidos</span><span class="side-count alert" data-stat="vencido">0</span>
+          </button>
+          <button class="side" type="button" data-filter="terminado">
+            <svg class="side-ic green" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8.2 12.3l2.6 2.6 5-5.3"/></svg><span class="side-txt">Terminados</span><span class="side-count" data-stat="terminado">0</span>
+          </button>
+          <button class="side" type="button" data-filter="cancelado">
+            <svg class="side-ic gray" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9.2 9.2l5.6 5.6M14.8 9.2l-5.6 5.6"/></svg><span class="side-txt">Cancelados</span><span class="side-count" data-stat="cancelado">0</span>
+          </button>
+        </div>
+
+        <div class="side-group">
+          <div class="side-title">Importancia</div>
+          <button class="side" type="button" data-prio="alta"><i class="flag alta"></i><span class="side-txt">Alta</span><span class="side-count" data-prio-stat="alta">0</span></button>
+          <button class="side" type="button" data-prio="media"><i class="flag media"></i><span class="side-txt">Media</span><span class="side-count" data-prio-stat="media">0</span></button>
+          <button class="side" type="button" data-prio="baja"><i class="flag baja"></i><span class="side-txt">Baja</span><span class="side-count" data-prio-stat="baja">0</span></button>
+        </div>
+
+        <div class="progress-card glass lift">
+          <span class="sheen" aria-hidden="true"></span>
+          <div class="pc-title">Progreso</div>
+          <div class="pc-value"><b id="pc-text">0 de 0</b><span>completados</span></div>
+          <div class="pc-bar"><span id="pc-bar"></span></div>
+        </div>
+      </nav>
+
+      <!-- Contenido -->
+      <div class="content">
+        <section class="hero">
+          <div class="hero-date" id="hero-date"></div>
+          <h1 id="greeting">Hola</h1>
+          <p class="subtitle" id="today-label"></p>
+        </section>
+
+        <!-- Alta rápida -->
+        <form class="quick-add glass" id="quick-add" autocomplete="off">
+          <svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          <input id="qa-nombre" type="text" maxlength="200" placeholder="¿Qué tienes pendiente?" title="Atajo: presiona N para escribir" aria-label="Nombre del pendiente" required>
+          <label class="date-field" title="Fecha de fin">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+            <input id="qa-fecha" type="date" aria-label="Fecha de fin" required>
+          </label>
+          <div class="quick-dates" role="group" aria-label="Atajos de fecha">
+            <button type="button" data-days="0">Hoy</button>
+            <button type="button" data-days="1">Mañana</button>
+            <button type="button" data-days="7">1 sem</button>
+          </div>
+          <div class="segmented small prio-seg" id="qa-prio" role="group" aria-label="Importancia" title="¿Qué tan importante es para tus metas?">
+            <span class="seg-indicator"></span>
+            <button type="button" data-val="baja"><i class="flag baja"></i>Baja</button>
+            <button type="button" data-val="media" class="active"><i class="flag media"></i>Media</button>
+            <button type="button" data-val="alta"><i class="flag alta"></i>Alta</button>
+          </div>
+          <button class="btn-primary" type="submit">Agregar</button>
+        </form>
+
+        <!-- 1. Listado -->
+        <section class="panel glass" aria-labelledby="h-list">
+          <div class="panel-head">
+            <div>
+              <h2 id="h-list">Listado</h2>
+              <p class="hint" id="list-hint">Toca el círculo para marcarlo como terminado.</p>
+            </div>
+            <div class="toolbar">
+              <div class="segmented small" id="sort" role="group" aria-label="Ordenar">
+                <span class="seg-indicator"></span>
+                <button class="active" data-sort="sugerido">Sugerido</button>
+                <button data-sort="fecha">Por fecha</button>
+              </div>
+              <span class="filter-chip" id="filter-chip" hidden>
+                <span id="filter-chip-txt"></span>
+                <button type="button" id="filter-clear" aria-label="Quitar filtro" title="Quitar filtro"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M3 3l4 4M7 3l-4 4"/></svg></button>
+              </span>
+            </div>
+          </div>
+          <div class="list-header">
+            <span>#</span><span>Pendiente</span><span>Fecha fin</span><span>Tiempo</span><span>Estatus</span><span></span>
+          </div>
+          <ul class="list" id="list"></ul>
+          <div class="more" id="list-more" hidden><button type="button" class="btn-ghost" id="list-more-btn"></button></div>
+          <div class="empty" id="empty" hidden>
+            <div class="empty-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+            <p id="empty-text">No hay pendientes aquí.</p>
+          </div>
+        </section>
+
+        <!-- 2. Sugerencias -->
+        <section class="suggestions" id="sug" aria-labelledby="h-sug" hidden>
+          <div class="sec-head">
+            <h2 id="h-sug">Sugerencias para hoy</h2>
+            <p class="hint">Un orden para avanzar, según la fecha de fin y la importancia de cada pendiente.</p>
+          </div>
+          <div class="sug-row">
+            <div class="sug-main glass lift" id="sug-main"></div>
+            <div class="sug-tip glass lift" id="sug-tip"></div>
+          </div>
+          <ol class="sug-next" id="sug-next"></ol>
+        </section>
+
+        <!-- 3. Gantt -->
+        <section class="panel glass" aria-labelledby="h-gantt">
+          <div class="panel-head">
+            <div>
+              <h2 id="h-gantt">Línea de tiempo</h2>
+              <p class="hint">Filas en el orden sugerido · la línea naranja es hoy · <b>Carga</b> te avisa los días con más pendientes juntos.</p>
+            </div>
+            <div class="toolbar">
+              <div class="legend">
+                <span><i class="sw proceso"></i>En proceso</span>
+                <span><i class="sw vencido"></i>Vencido</span>
+                <span><i class="sw terminado"></i>Terminado</span>
+                <span><i class="sw cancelado"></i>Cancelado</span>
+              </div>
+              <div class="segmented small" id="zoom">
+                <span class="seg-indicator"></span>
+                <button class="active" data-zoom="dia">Días</button>
+                <button data-zoom="semana">Semanas</button>
+              </div>
+              <button class="btn-ghost" id="go-today">Hoy</button>
+            </div>
+          </div>
+          <div class="gantt-wrap" id="gantt-wrap">
+            <div class="gantt" id="gantt"></div>
+          </div>
+          <div class="more" id="gantt-more" hidden><button type="button" class="btn-ghost" id="gantt-more-btn"></button></div>
+          <div class="empty" id="gantt-empty" hidden><p>Agrega un pendiente para verlo en la línea de tiempo.</p></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Menú de estatus -->
+  <div class="popover glass status-pop" id="status-menu" hidden role="menu" aria-label="Cambiar estatus">
+    <div class="sp-title">Cambiar estatus</div>
+    <button data-set="proceso" role="menuitemradio"><svg class="sp-check" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.4 2.4 4.6-5"/></svg><span class="sp-ic blue"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg></span><span class="sp-txt">En proceso</span></button>
+    <button data-set="terminado" role="menuitemradio"><svg class="sp-check" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.4 2.4 4.6-5"/></svg><span class="sp-ic green"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 12.4l3.3 3.3L17 9"/></svg></span><span class="sp-txt">Terminado</span></button>
+    <button data-set="cancelado" role="menuitemradio"><svg class="sp-check" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.4 2.4 4.6-5"/></svg><span class="sp-ic gray"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg></span><span class="sp-txt">Cancelado</span></button>
+  </div>
+
+  <!-- Selector de fondo de pantalla -->
+  <div class="popover glass wall-panel" id="wall-panel" hidden role="dialog" aria-label="Fondo de pantalla">
+    <div class="wp-head"><b>Fondo de pantalla</b><span>Se guarda en este navegador</span></div>
+    <div class="wp-grid" id="wp-grid">
+      <button type="button" class="wp-item" data-wall="macos"><span class="wp-thumb t-macos"></span><span class="wp-name">macOS</span></button>
+      <button type="button" class="wp-item" data-wall="ondas"><span class="wp-thumb t-ondas"></span><span class="wp-name">Ondas</span></button>
+      <button type="button" class="wp-item" data-wall="azul"><span class="wp-thumb t-azul"></span><span class="wp-name">Azul</span></button>
+      <button type="button" class="wp-item" data-wall="dunas"><span class="wp-thumb t-dunas"></span><span class="wp-name">Dunas</span></button>
+      <button type="button" class="wp-item" data-wall="cumbre"><span class="wp-thumb t-cumbre"></span><span class="wp-name">Cumbre</span></button>
+      <button type="button" class="wp-item" data-wall="costa"><span class="wp-thumb t-costa"></span><span class="wp-name">Costa</span></button>
+      <button type="button" class="wp-item" data-wall="custom" id="wp-custom" hidden><span class="wp-thumb" id="wp-custom-thumb"></span><span class="wp-name">Tu fondo</span></button>
+    </div>
+    <div class="wp-actions">
+      <label class="btn-primary wp-upload">Subir imagen, GIF o video…<input type="file" id="wall-file" accept="image/*,video/mp4,video/webm" hidden></label>
+      <button type="button" class="btn-ghost" id="wall-remove" hidden>Quitar mi fondo</button>
+    </div>
+    <p class="wp-hint">Para fondos con movimiento, un <b>video MP4 o WebM</b> corre más fluido que un GIF. Con fondo animado, la ventana usa vidrio esmerilado fijo para que la app siga rápida.</p>
+  </div>
+
+  <!-- Hoja de edición -->
+  <div class="sheet-backdrop" id="sheet" hidden>
+    <form class="sheet glass" id="edit-form" autocomplete="off">
+      <h3>Editar pendiente</h3>
+      <label class="field">
+        <span>Nombre</span>
+        <input id="ed-nombre" type="text" maxlength="200" required>
+      </label>
+      <div class="field-row">
+        <label class="field"><span>Inicio</span><input id="ed-inicio" type="date" required></label>
+        <label class="field"><span>Fecha fin</span><input id="ed-fin" type="date" required></label>
+      </div>
+      <div class="field">
+        <span>Estatus</span>
+        <div class="segmented status-seg" id="ed-estatus">
+          <span class="seg-indicator"></span>
+          <button type="button" data-val="proceso">En proceso</button>
+          <button type="button" data-val="terminado">Terminado</button>
+          <button type="button" data-val="cancelado">Cancelado</button>
+        </div>
+      </div>
+      <div class="field">
+        <span>Importancia para tus metas</span>
+        <div class="segmented status-seg prio-seg" id="ed-prio">
+          <span class="seg-indicator"></span>
+          <button type="button" data-val="baja"><i class="flag baja"></i>Baja</button>
+          <button type="button" data-val="media"><i class="flag media"></i>Media</button>
+          <button type="button" data-val="alta"><i class="flag alta"></i>Alta</button>
+        </div>
+      </div>
+      <p class="form-error" id="ed-error" hidden></p>
+      <div class="sheet-actions">
+        <button type="button" class="btn-danger" id="ed-delete">Eliminar</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn-ghost" id="ed-cancel">Cancelar</button>
+        <button type="submit" class="btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Confirmación de eliminación con palabra aleatoria -->
+  <div class="sheet-backdrop" id="del-sheet" hidden>
+    <form class="sheet glass del-sheet" id="del-form" autocomplete="off">
+      <div class="del-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M9.5 7V4.8c0-.4.4-.8.8-.8h3.4c.4 0 .8.4.8.8V7M6.5 7l.9 12.2c.1.9.8 1.8 1.8 1.8h5.6c1 0 1.7-.9 1.8-1.8L17.5 7M10 11v6M14 11v6"/></svg>
+      </div>
+      <h3>¿Eliminar este pendiente?</h3>
+      <p class="del-name" id="del-name"></p>
+      <p class="del-help">Solo podrás deshacerlo durante unos segundos. Para confirmar, escribe esta palabra:</p>
+      <div class="del-word" id="del-word" aria-live="polite"></div>
+      <input id="del-input" type="text" spellcheck="false" autocapitalize="off" aria-label="Escribe la palabra para confirmar" placeholder="Escribe la palabra aquí">
+      <div class="sheet-actions">
+        <button type="button" class="btn-ghost" id="del-cancel">Cancelar</button>
+        <span class="spacer"></span>
+        <button type="submit" class="btn-danger solid" id="del-ok" disabled>Eliminar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Menús de la barra superior -->
+  <div class="popover glass menu-dd" id="dd-app" role="menu" hidden>
+    <button role="menuitem" data-action="shortcuts"><span>Atajos de teclado</span><kbd>?</kbd></button>
+    <button role="menuitem" data-action="top"><span>Ir al inicio</span></button>
+  </div>
+  <div class="popover glass menu-dd" id="dd-archivo" role="menu" hidden>
+    <button role="menuitem" data-action="new"><span>Nuevo pendiente</span><kbd>N</kbd></button>
+    <hr>
+    <button role="menuitem" data-action="csv"><span>Exportar a Excel (CSV)</span></button>
+    <button role="menuitem" data-action="print"><span>Imprimir listado</span><kbd>Ctrl P</kbd></button>
+  </div>
+  <div class="popover glass menu-dd" id="dd-editar" role="menu" hidden>
+    <button role="menuitem" data-action="search"><span>Buscar</span><kbd>/</kbd></button>
+    <button role="menuitem" data-action="edit-first"><span>Editar el pendiente sugerido #1</span></button>
+    <hr>
+    <button role="menuitem" data-action="reset"><span>Quitar filtros y búsqueda</span></button>
+  </div>
+  <div class="popover glass menu-dd" id="dd-vista" role="menu" hidden>
+    <div class="dd-label">Apariencia</div>
+    <button role="menuitemradio" data-action="theme-auto" data-check="themeAuto"><span>Automática (como el sistema)</span></button>
+    <button role="menuitemradio" data-action="theme-light" data-check="themeLight"><span>Clara</span></button>
+    <button role="menuitemradio" data-action="theme-dark" data-check="themeDark"><span>Oscura</span><kbd>D</kbd></button>
+    <hr>
+    <button role="menuitem" data-action="sidebar" data-check="sidebar"><span>Barra lateral</span><kbd>B</kbd></button>
+    <button role="menuitem" data-action="hide-closed" data-check="hideClosed"><span>Ocultar terminados y cancelados</span></button>
+    <hr>
+    <button role="menuitem" data-action="sort-sugerido" data-check="sortSugerido"><span>Ordenar por sugerencia</span></button>
+    <button role="menuitem" data-action="sort-fecha" data-check="sortFecha"><span>Ordenar por fecha</span></button>
+    <hr>
+    <button role="menuitem" data-action="zoom-dia" data-check="zoomDia"><span>Línea de tiempo por días</span></button>
+    <button role="menuitem" data-action="zoom-semana" data-check="zoomSemana"><span>Línea de tiempo por semanas</span></button>
+    <button role="menuitem" data-action="today"><span>Ir a hoy en la línea de tiempo</span><kbd>T</kbd></button>
+    <hr>
+    <button role="menuitem" data-action="glass" data-check="liveGlass"><span>Vidrio en vivo (desenfoque)</span></button>
+    <button role="menuitem" data-action="fullscreen" data-check="fullscreen"><span>Pantalla completa</span><kbd>F</kbd></button>
+  </div>
+
+  <!-- Atajos de teclado -->
+  <div class="sheet-backdrop" id="help-sheet" hidden>
+    <div class="sheet glass help-sheet" role="dialog" aria-labelledby="help-title">
+      <h3 id="help-title">Atajos de teclado</h3>
+      <dl class="shortcuts">
+        <dt><kbd>N</kbd></dt><dd>Escribir un nuevo pendiente</dd>
+        <dt><kbd>/</kbd></dt><dd>Buscar</dd>
+        <dt><kbd>T</kbd></dt><dd>Ir a hoy en la línea de tiempo</dd>
+        <dt><kbd>B</kbd></dt><dd>Ocultar o mostrar la barra lateral</dd>
+        <dt><kbd>F</kbd></dt><dd>Pantalla completa</dd>
+        <dt><kbd>D</kbd></dt><dd>Cambiar entre modo claro y oscuro</dd>
+        <dt><kbd>Enter</kbd></dt><dd>Agregar o guardar</dd>
+        <dt><kbd>Esc</kbd></dt><dd>Cerrar ventanas y menús</dd>
+        <dt><kbd>?</kbd></dt><dd>Mostrar estos atajos</dd>
+      </dl>
+      <div class="sheet-actions"><span class="spacer"></span><button type="button" class="btn-primary" id="help-close">Entendido</button></div>
+    </div>
+  </div>
+
+  <div class="tooltip glass" id="tooltip" hidden></div>
+  <div class="toast glass" id="toast" hidden></div>
+
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

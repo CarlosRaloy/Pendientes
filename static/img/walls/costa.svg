@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#14c4cf"/><stop offset=".45" stop-color="#7fd1c8"/><stop offset=".7" stop-color="#f0b49a"/><stop offset=".78" stop-color="#f3a088"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5aa6a8"/><stop offset="1" stop-color="#2c7f8c"/>
+    </linearGradient>
+    <linearGradient id="cliff" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a14a36"/><stop offset="1" stop-color="#6e2e25"/>
+    </linearGradient>
+    <linearGradient id="sand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3b896"/><stop offset="1" stop-color="#dc8e6c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <!-- mar -->
+  <rect y="560" width="1600" height="440" fill="url(#sea)"/>
+  <path d="M0 600 L700 600 M100 650 L600 650 M0 700 L420 700" stroke="#cfeee9" stroke-opacity=".25" stroke-width="3"/>
+  <!-- islote lejano -->
+  <path d="M420 560 C 450 540, 500 540, 540 560 Z" fill="#7b4a4a"/>
+  <!-- acantilados a la derecha -->
+  <path d="M900 560 C 980 520, 1060 500, 1140 470 C 1240 420, 1320 360, 1420 330 C 1500 300, 1560 270, 1600 250 L1600 760 L900 760 Z" fill="url(#cliff)"/>
+  <path d="M1140 470 C 1200 520, 1240 600, 1220 700 L1600 700 L1600 420 C 1500 440, 1360 420, 1260 450 Z" fill="#c25f3f"/>
+  <path d="M1300 380 C 1380 450, 1440 520, 1430 600 L1600 600 L1600 340 Z" fill="#8c3a2b"/>
+  <path d="M1000 540 C 1060 560, 1100 600, 1080 660 L1200 660 C 1180 600, 1160 520, 1140 490 Z" fill="#b2533a"/>
+  <!-- vegetación -->
+  <path d="M1180 470 C 1260 440, 1330 470, 1300 520 C 1250 560, 1170 530, 1180 470 Z" fill="#1f4a3a"/>
+  <path d="M1400 330 C 1470 300, 1560 320, 1540 370 C 1500 410, 1400 390, 1400 330 Z" fill="#1d4434"/>
+  <path d="M1460 300 C 1500 240, 1580 230, 1600 270 L1600 330 C 1550 340, 1480 330, 1460 300 Z" fill="#163a2c"/>
+  <!-- pinos -->
+  <path d="M1240 420 L1250 470 M1430 300 L1440 340" stroke="#2a1c18" stroke-width="5"/>
+  <path d="M1190 420 C 1220 390, 1290 390, 1300 420 C 1270 435, 1220 435, 1190 420 Z" fill="#183a2c"/>
+  <path d="M1380 290 C 1420 255, 1500 260, 1510 290 C 1470 306, 1410 306, 1380 290 Z" fill="#183a2c"/>
+  <!-- playa -->
+  <path d="M700 1000 C 820 860, 980 760, 1120 700 C 1240 650, 1380 660, 1600 640 L1600 1000 Z" fill="url(#sand)"/>
+  <path d="M640 1000 C 780 860, 940 760, 1100 700" fill="none" stroke="#e9f7f3" stroke-width="16" stroke-linecap="round" opacity=".85"/>
+  <path d="M600 1000 C 740 880, 900 780, 1060 720" fill="none" stroke="#bfe7e2" stroke-width="6" stroke-linecap="round" opacity=".7"/>
+  <!-- rocas en la arena -->
+  <path d="M1000 760 C 1040 730, 1110 730, 1140 760 Z" fill="#7a3a2c"/>
+  <path d="M1230 820 C 1270 790, 1330 790, 1360 820 Z" fill="#6e3226"/>
+  <!-- roca y flores en primer plano -->
+  <path d="M0 760 C 80 720, 180 730, 260 780 C 320 820, 340 900, 300 1000 L0 1000 Z" fill="#5a2a22"/>
+  <path d="M0 800 C 60 780, 140 790, 200 820 L160 1000 L0 1000 Z" fill="#7a3a2c"/>
+  <g fill="#0f2a22">
+    <path d="M20 1000 C 40 900, 60 860, 90 840 C 80 900, 70 950, 80 1000 Z"/>
+    <path d="M160 1000 C 170 920, 200 880, 240 860 C 220 920, 210 960, 220 1000 Z"/>
+    <path d="M300 1000 C 320 940, 350 910, 380 900 C 370 950, 360 980, 370 1000 Z"/>
+  </g>
+  <g fill="#ff5a3c">
+    <circle cx="60" cy="880" r="12"/><circle cx="110" cy="910" r="10"/><circle cx="170" cy="870" r="11"/>
+    <circle cx="230" cy="920" r="12"/><circle cx="290" cy="890" r="10"/><circle cx="340" cy="940" r="11"/>
+    <circle cx="90" cy="960" r="11"/><circle cx="200" cy="975" r="10"/><circle cx="400" cy="960" r="9"/>
+  </g>
+  <g fill="#ffb199">
+    <circle cx="60" cy="880" r="4"/><circle cx="170" cy="870" r="4"/><circle cx="230" cy="920" r="4"/><circle cx="340" cy="940" r="4"/>
+  </g>
+</svg>
